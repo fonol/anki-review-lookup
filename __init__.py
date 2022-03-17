@@ -1,4 +1,3 @@
-from distutils.command.config import config
 from aqt import mw, gui_hooks
 import aqt
 import time
