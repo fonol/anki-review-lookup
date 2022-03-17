@@ -141,6 +141,10 @@ window.setTooltipSearchResults = function(tooltipId, results) {
             tooltip_scroll.style.maxHeight = Math.max(100, tooltip_scroll.offsetHeight + sbox.top) + 'px'; 
         }
 
+        if (typeof(window.MathJax) !== 'undefined' && window.MathJax.typeset) {
+            window.MathJax.typeset();
+        }
+
     }, 50);
 
 };
