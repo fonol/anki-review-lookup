@@ -13,3 +13,12 @@ Valid values are **"inherit"** or a number, e.g. **15**.
 **"inherit"** means take whatever font-size is set for the outside of the tooltip.
 
 Default = **"inherit"**
+
+---------------------------------------------------------------
+`excluded_decks`
+
+If you don't want notes from some decks to show up in the search results, add these 
+decks here. Accepts a comma-separated list of deck names (case-sensitive!).
+E.g. **["deck 1", "parent deck::child deck"]**
+
+Default = **[]**

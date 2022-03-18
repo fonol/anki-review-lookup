@@ -2,6 +2,7 @@
     "query.max_length" : 300,
     "blur_nested_tooltips": true,
     "results.limit": 50,
-    "results.font_size": "inherit"
+    "results.font_size": "inherit",
+    "excluded_decks": []
 
 }

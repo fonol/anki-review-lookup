@@ -189,8 +189,20 @@ def run_search(query: str) -> List[Any]:
 
 
 def load_notes():
+    """ Load the notes to be indexed from Anki's database. """
 
-    notes = mw.col.db.all("select id, flds from notes")
+    decks_to_exclude = config["excluded_decks"]
+    if decks_to_exclude is None or len(decks_to_exclude) == 0:
+        notes = mw.col.db.all("select id, flds from notes")
+    else:
+        dids  = [mw.col.decks.id_for_name(n) for n in decks_to_exclude if n]
+        dids  = [str(did) for did in dids if did is not None]
+        if len(dids) == 0:
+            notes = mw.col.db.all("select id, flds from notes")
+        else:
+            dids  = ",".join(dids)
+            notes = mw.col.db.all(f"select n.id, n.flds from notes n join cards c on n.id = c.nid where c.did not in ({dids}) group by n.id")
+
     notes = [Document(n[0], n[1]) for n in notes]
     return notes
 
