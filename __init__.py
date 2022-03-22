@@ -183,7 +183,6 @@ def run_search(query: str) -> List[Any]:
 
     # print(f"[Review Search] Search took {time.time() * 1000 - start} ms, found {len(res)} results")
 
-
     return res
 
 

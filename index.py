@@ -14,25 +14,22 @@ class Index:
     def size(self): 
         return len(self.documents)
 
-
     def index_document(self, document):
-        if document.id not in self.documents:
-            self.documents[document.id] = document
-            document.analyze()
 
-        for token in analyze(document.text):
+        self.documents[document.id] = document
+        for token in document.analyze():
             if token not in self.index:
-                self.index[token] = set()
-            self.index[token].add(document.id)
+                self.index[token] = []
+            self.index[token].append(document.id)
 
     def document_frequency(self, token):
-        return len(self.index.get(token, set()))
+        return len(self.index.get(token, []))
 
     def inverse_document_frequency(self, token):
         return math.log10(len(self.documents) / max(self.document_frequency(token), 1))
 
     def _results(self, analyzed_query):
-        return [self.index.get(token, set()) for token in analyzed_query]
+        return [set(self.index.get(token, [])) for token in analyzed_query]
 
     def search(self, query, search_type='AND', rank=False, top=10):
         """

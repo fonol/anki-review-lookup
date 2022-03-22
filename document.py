@@ -10,7 +10,11 @@ class Document:
     text    : str
 
     def analyze(self):
-        self.term_frequencies = Counter(analyze(self.text))
+
+        tokens                  = analyze(self.text)
+        self.term_frequencies   = Counter(tokens)
+
+        return set(tokens)
 
     def term_frequency(self, term):
         return self.term_frequencies.get(term, 0)
