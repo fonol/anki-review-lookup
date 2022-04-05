@@ -61,11 +61,16 @@ def on_webview_will_set_content(web_content: Any, context):
                 position: absolute;
                 box-shadow: 2px 2px 5px black;
                 border-radius: 5px;
-                padding: 10px 5px 10px 10px;
+                padding: 10px 5px 0 10px;
                 overflow: hidden;
                 background: white !important;
                 border: 1px solid #b7b7b7 !important;
                 box-shadow: 2px 2px 5px #9e9e9e;
+                max-width: 370px;
+                max-height: 500px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
             }
             .night_mode .rev-tooltip {
                 background: #2f2f31 !important;
@@ -73,15 +78,19 @@ def on_webview_will_set_content(web_content: Any, context):
                 box-shadow: 2px 2px 5px black;
             }
             .rev-tooltip__scroll {
-                max-height: 450px;
+                display: flex;
                 overflow-y: auto;
-                max-width: 350px;
                 padding-right: 8px;
+                flex: 1;
+                justify-content: start;
+                flex-wrap: wrap;
+                align-items: baseline;
             }
-
             .rev-tooltip__scroll .sr {
-                display: block;
-                margin: 10px 0;
+                width: auto;
+                flex: 1 1 200px;
+                text-align: left;
+                margin: 5px;
                 border-radius: 5px;
                 padding: 10px;
                 overflow: hidden;
@@ -111,10 +120,17 @@ def on_webview_will_set_content(web_content: Any, context):
                 border-bottom: 1px solid #e4e4e4;
                 margin-bottom: 10px !important;
                 display: flex;
+                justify-content: center;
                 padding-bottom: 8px;
             }
             .night_mode .rev-tooltip__search {
                 border-bottom: 1px solid #383838 !important;
+            }
+            .rev-tooltip__search_icn {
+                color: #333;
+            }
+            .night_mode .rev-tooltip__search_icn {
+                color: #8a8a8a;
             }
             .rev-tooltip__search > input {
                 flex: 1;
@@ -122,6 +138,7 @@ def on_webview_will_set_content(web_content: Any, context):
                 border: none;
                 background: transparent !important;
                 font-size: 20px !important;
+                margin-left: 10px;
             }
             .night_mode .rev-tooltip__search > input {
                 color: lightgrey !important;
@@ -133,6 +150,27 @@ def on_webview_will_set_content(web_content: Any, context):
                 border: 1px solid #484848;
                 border-color: #484848 !important;
                 background: #383838 !important;
+            }
+            .rev-tooltip__bottom {
+                text-align: right;
+                padding: 3px 0;
+            }
+            .rev-tooltip__resize {
+                height: 15px;
+                width: 15px;
+                opacity: 0.5;
+                cursor: pointer;
+            }
+            .night_mode .rev-tooltip__resize {
+                color: #8a8a8a;
+            }
+            .rev-tooltip__resize:hover {
+                opacity: 1.0;
+            }
+            center.no-results {
+                user-select: none;
+                margin: 20px 0;
+                width: 100%;
             }
         </style>"""
     web_content.body += f"""<script type='text/javascript'>
