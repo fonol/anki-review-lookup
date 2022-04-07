@@ -160,7 +160,7 @@ if (typeof(window._revTooltipIdCount) === 'undefined') {
     window._revTooltipIdCount = 1;
 
     document.addEventListener('mouseup', (event) => {
-        let selection = window.getSelection().toString().replace(/\n/g, ' ');
+        let selection = window.getSelection().toString().replace(/\n|\s{2,}/g, ' ');
         if (selection && selection.trim().length) {
             renderNewTooltip(selection);
         }
