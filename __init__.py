@@ -203,7 +203,7 @@ def expanded_on_bridge_cmd(handled: Tuple[bool, Any], cmd: str, self: Any) -> Tu
         tooltip_id = int(cmd.split()[1])
         query      = " ".join(cmd.split()[2:])
         notes       = run_search(query)
-        notes       = [prettify_search_result_html(n.text, query) for n in notes]
+        notes       = [prettify_search_result_html(n.text, query, config["should_highlight"]) for n in notes]
 
         self.web.page().runJavaScript(f"setTooltipSearchResults({tooltip_id}, {json.dumps(notes)})")
         return (True, None)

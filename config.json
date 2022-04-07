@@ -1,5 +1,6 @@
 {
     "query.max_length" : 300,
+    "should_highlight": true,
     "blur_nested_tooltips": true,
     "results.limit": 50,
     "results.font_size": "inherit",

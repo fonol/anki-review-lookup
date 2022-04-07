@@ -1,3 +1,11 @@
+`should_highlight`
+
+If **true**, found words from your search will be marked in the search results.
+Valid values are **true** or **false**.
+
+Default = **true**
+
+---------------------------------------------------------------
 `blur_nested_tooltips`
 
 You can nest tooltips (by selecting text in a tooltip), and if this is set to **true**,
