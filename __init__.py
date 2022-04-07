@@ -154,17 +154,19 @@ def on_webview_will_set_content(web_content: Any, context):
             .rev-tooltip__bottom {
                 text-align: right;
                 padding: 3px 0;
+                user-select: none;
             }
-            .rev-tooltip__resize {
+            .rev-tooltip__resize, .rev-tooltip__zoom {
                 height: 15px;
                 width: 15px;
                 opacity: 0.5;
+                margin-left: 5px;
                 cursor: pointer;
             }
-            .night_mode .rev-tooltip__resize {
+            .night_mode .rev-tooltip__resize, .night_mode .rev-tooltip__zoom {
                 color: #8a8a8a;
             }
-            .rev-tooltip__resize:hover {
+            .rev-tooltip__resize:hover, .rev-tooltip__zoom:hover {
                 opacity: 1.0;
             }
             center.no-results {
