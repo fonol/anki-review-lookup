@@ -152,9 +152,11 @@ def on_webview_will_set_content(web_content: Any, context):
                 background: #383838 !important;
             }
             .rev-tooltip__bottom {
-                text-align: right;
-                padding: 3px 0;
+                padding: 4px 0;
                 user-select: none;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
             }
             .rev-tooltip__resize, .rev-tooltip__zoom {
                 height: 15px;
@@ -173,6 +175,26 @@ def on_webview_will_set_content(web_content: Any, context):
                 user-select: none;
                 margin: 20px 0;
                 width: 100%;
+            }
+            .rev-tooltip ::-webkit-scrollbar {
+                background-color: white;
+            }
+            .rev-tooltip ::-webkit-scrollbar-corner {
+                background-color: white;
+            }
+            .rev-tooltip ::-webkit-scrollbar-thumb {
+                background: #e8e8e8;
+                border-radius: 8px;
+            }
+            .night_mode .rev-tooltip ::-webkit-scrollbar {
+                background-color: #2f2f31;
+            }
+            .night_mode .rev-tooltip ::-webkit-scrollbar-corner {
+                background-color: #2f2f31;
+            }
+            .night_mode .rev-tooltip ::-webkit-scrollbar-thumb {
+                background: #656565;
+                border-radius: 8px;
             }
         </style>"""
     web_content.body += f"""<script type='text/javascript'>
