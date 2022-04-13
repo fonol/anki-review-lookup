@@ -80,7 +80,9 @@ window.renderNewTooltip = function(query) {
     tooltip.classList.add('rev-tooltip');
     let scroll = document.scrollingElement.scrollTop;
     tooltip.style.left = sbox.left + 'px';
-    if (window.innerHeight - sbox.bottom < 470) {
+    let spaceOnBottom = window.innerHeight - sbox.bottom;
+    let spaceOnTop = sbox.top;
+    if (spaceOnBottom < spaceOnTop) {
         // place tooltip above selection
         tooltip.style.bottom = (window.innerHeight - sbox.top - scroll) + 'px';
     } else {
@@ -149,7 +151,7 @@ window.setTooltipSearchResults = function(tooltipId, results) {
         let tooltip = document.getElementById('rev-tooltip_' + tooltipId);
         let sbox = tooltip.getBoundingClientRect();
         if (sbox.top < 0) {
-            tooltip_scroll.style.maxHeight = Math.max(100, tooltip_scroll.offsetHeight + sbox.top) + 'px'; 
+            tooltip.style.maxHeight = Math.max(100, tooltip.offsetHeight + sbox.top) + 'px'; 
         }
         if (typeof(window.MathJax) !== 'undefined' && window.MathJax.typeset) {
             window.MathJax.typeset();

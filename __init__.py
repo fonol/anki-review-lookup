@@ -70,6 +70,7 @@ def on_webview_will_set_content(web_content: Any, context):
                 max-height: 500px;
                 display: flex;
                 flex-direction: column;
+                box-sizing: border-box;
                 overflow: hidden;
             }
             .night_mode .rev-tooltip {
