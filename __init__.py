@@ -99,6 +99,7 @@ def on_webview_will_set_content(web_content: Any, context):
                 border: 1px solid #eaeaea;
                 border-color: #eaeaea !important;
                 background: #f9f9f9 !important;
+                position: relative;
             } 
             .rev-tooltip__scroll > .sr:first-child {
                 margin-top: 0;
@@ -159,15 +160,30 @@ def on_webview_will_set_content(web_content: Any, context):
                 justify-content: flex-end;
                 align-items: center;
             }
-            .rev-tooltip__resize, .rev-tooltip__zoom {
+            .rev-tooltip__resize, .rev-tooltip__zoom, .rev-tooltip__edit {
                 height: 15px;
                 width: 15px;
                 opacity: 0.5;
                 margin-left: 5px;
                 cursor: pointer;
             }
+            .rev-tooltip__edit {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+                display: none;
+            }
+            .rev-tooltip__edit:hover {
+                filter: brightness(1.4);
+            }
+            .sr:hover .rev-tooltip__edit {
+                display: block;
+            }
             .night_mode .rev-tooltip__resize, .night_mode .rev-tooltip__zoom {
                 color: #8a8a8a;
+            }
+            .night_mode .rev-tooltip__edit {
+                fill: #8a8a8a;
             }
             .rev-tooltip__resize:hover, .rev-tooltip__zoom:hover {
                 opacity: 1.0;
@@ -228,11 +244,18 @@ def expanded_on_bridge_cmd(handled: Tuple[bool, Any], cmd: str, self: Any) -> Tu
         tooltip_id = int(cmd.split()[1])
         query      = " ".join(cmd.split()[2:])
         notes       = run_search(query)
-        notes       = [prettify_search_result_html(n.text, query, config["should_highlight"]) for n in notes]
+        notes       = [[n.id, prettify_search_result_html(n.text, query, config["should_highlight"])] for n in notes]
 
         self.web.page().runJavaScript(f"setTooltipSearchResults({tooltip_id}, {json.dumps(notes)})")
         return (True, None)
 
+    elif cmd.startswith("rev-tt-edit "):
+        browser = aqt.dialogs.open("Browser", mw)
+        browser.form.searchEdit.lineEdit().setText(f"nid:{cmd.split()[1]}")
+        browser.onSearchActivated()
+        return (True, None)
+    
+    
     return handled
 
 def run_search(query: str) -> List[Any]: 

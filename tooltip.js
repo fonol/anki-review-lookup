@@ -79,15 +79,23 @@ window.renderNewTooltip = function(query) {
     let tooltip = document.createElement('div');
     tooltip.classList.add('rev-tooltip');
     let scroll = document.scrollingElement.scrollTop;
-    tooltip.style.left = sbox.left + 'px';
+    let parent = srange.commonAncestorContainer;
+    while(parent && (!parent.classList || !parent.classList.contains('rev-tooltip__scroll')) && parent.tagName !== 'body') {
+        parent = parent.parentNode;
+    }
+    let zoom = 1.0;
+    if (parent && parent.classList.contains('rev-tooltip__scroll')) {
+        zoom = Number(parent.dataset.zoom||"1.0");
+    }
+    tooltip.style.left = zoom * sbox.left + 'px';
     let spaceOnBottom = window.innerHeight - sbox.bottom;
     let spaceOnTop = sbox.top;
     if (spaceOnBottom < spaceOnTop) {
         // place tooltip above selection
-        tooltip.style.bottom = (window.innerHeight - sbox.top - scroll) + 'px';
+        tooltip.style.bottom = (window.innerHeight - (sbox.top * zoom) - scroll) + 'px';
     } else {
         // place tooltip under selection
-        tooltip.style.top = (sbox.bottom + scroll) + 'px';
+        tooltip.style.top = (sbox.bottom * zoom + scroll) + 'px';
     }
     tooltip.id = 'rev-tooltip_' + id;
 
@@ -142,7 +150,9 @@ window.setTooltipSearchResults = function(tooltipId, results) {
         html = '<center class="no-results">Sorry, found no search results.</center>'
     } else {
         for (let r of results) {
-            html += `<div class='sr'>${r}</div>`;
+            html += `<div class='sr'>${r[1]}
+                <svg class="rev-tooltip__edit" onclick="pycmd('rev-tt-edit ${r[0]}')" width="14" height="14" viewBox="0 0 512 512"><path d="M362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32zM421.7 220.3L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3z"/></svg>
+            </div>`;
         }
     }
     tooltip_scroll.innerHTML = html;
